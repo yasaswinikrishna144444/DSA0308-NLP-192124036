@@ -1,41 +1,14 @@
-class MorphologicalFiniteStateMachine:
-    def __init__(self):
-        self.current_state = 'start'
-
-    def transition(self, input_char):
-        transitions = {
-            'start': {'consonant': 'add_s', 'vowel': 'add_es'},
-            'add_s': {},
-            'add_es': {},
-        }
-
-        if input_char in transitions[self.current_state]:
-            self.current_state = transitions[self.current_state][input_char]
-        else:
-            self.current_state = 'add_s'  # Default transition for unknown characters
-
+class MorphologicalFSM:
     def generate_plural(self, noun):
-        if noun[-1] in 'sxz' or noun[-2:] in ['sh', 'ch']:
-            return noun + 'es'
-        elif noun[-1] == 'y' and noun[-2] not in 'aeiou':
-            return noun[:-1] + 'ies'
+        if noun.endswith('s'):
+            return noun
         else:
             return noun + 's'
 
+if __name__ == "_main_":
+    fsm = MorphologicalFSM()
 
-def pluralize_noun(noun):
-    fsm = MorphologicalFiniteStateMachine()
-    for char in noun[::-1]:  # Reverse the noun for easier handling of suffixes
-        if char.lower() in 'aeiou':
-            fsm.transition('vowel')
-        else:
-            fsm.transition('consonant')
-
-    return fsm.generate_plural(noun)
-
-
-# Test the finite-state machine
-nouns = ['dog', 'cat', 'city', 'baby', 'box', 'church', 'fox']
-for noun in nouns:
-    plural = pluralize_noun(noun)
-    print(f"The plural form of '{noun}' is '{plural}'")
+    # Test the FSM
+    nouns = ['cat', 'dog', 'fox', 'house', 'box', 'bus']
+    for noun in nouns:
+        print(f"Plural of '{noun}': {fsm.generate_plural(noun)}")
