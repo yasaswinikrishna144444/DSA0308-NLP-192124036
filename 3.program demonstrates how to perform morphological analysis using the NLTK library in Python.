@@ -1,0 +1,21 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+
+nltk.download('punkt')
+nltk.download('wordnet')
+
+text = "He loves running in the park with his dogs."
+
+# Tokenize the text
+tokens = word_tokenize(text)
+
+# Initialize WordNet lemmatizer
+lemmatizer = WordNetLemmatizer()
+
+# Perform morphological analysis (lemmatization)
+lemmatized_tokens = [lemmatizer.lemmatize(token) for token in tokens]
+
+# Print the original tokens and their lemmatized forms
+for original, lemmatized in zip(tokens, lemmatized_tokens):
+    print(f"Original: {original} --> Lemmatized: {lemmatized}")
