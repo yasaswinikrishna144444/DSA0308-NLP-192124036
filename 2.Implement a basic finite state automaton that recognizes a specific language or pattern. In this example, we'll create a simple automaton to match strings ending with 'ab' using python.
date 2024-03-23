@@ -1,0 +1,44 @@
+class FiniteStateAutomaton:
+    def __init__(self):
+        self.current_state = 'q0'
+
+    def transition(self, input_char):
+        if self.current_state == 'q0':
+            if input_char == 'a':
+                self.current_state = 'q1'
+            elif input_char == 'b':
+                self.current_state = 'q0'
+            else:
+                self.current_state = 'qError'
+        elif self.current_state == 'q1':
+            if input_char == 'a':
+                self.current_state = 'q1'
+            elif input_char == 'b':
+                self.current_state = 'q2'
+            else:
+                self.current_state = 'qError'
+        elif self.current_state == 'q2':
+            if input_char == 'a':
+                self.current_state = 'q1'
+            elif input_char == 'b':
+                self.current_state = 'q0'
+            else:
+                self.current_state = 'qError'
+        else:
+            self.current_state = 'qError'
+
+    def is_accepted(self):
+        return self.current_state == 'q2'
+
+def match_string_ending_with_ab(input_string):
+    fsm = FiniteStateAutomaton()
+    for char in input_string:
+        fsm.transition(char)
+    return fsm.is_accepted()
+
+test_strings = ['ab', 'cab', 'abcab', 'b', 'ba']
+for test_string in test_strings:
+    if match_string_ending_with_ab(test_string):
+        print(f"'{test_string}' matches the pattern.")
+    else:
+        print(f"'{test_string}' does not match the pattern.")
