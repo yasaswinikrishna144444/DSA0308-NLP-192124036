@@ -1,8 +1,16 @@
 import re
-text = "Hello, my email is example@email.com and my phone number is 123-456-7890."
+
+# Sample text
+text = "Please contact me at yasaswinikrishna@example.com or call me at 123-456-7890. Thanks!"
+
+# Define patterns using regular expressions
 email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 phone_pattern = r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b'
+
+# Search for patterns in the text
 emails_found = re.findall(email_pattern, text)
 phones_found = re.findall(phone_pattern, text)
+
+# Print the results
 print("Emails found:", emails_found)
 print("Phone numbers found:", phones_found)
