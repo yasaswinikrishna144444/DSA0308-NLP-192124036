@@ -12,9 +12,12 @@ def generate_text(bigram_model, length=10):
     word = random.choice(list(bigram_model.keys()))
     text = [word]
     for _ in range(length - 1):
-        next_word = random.choice(bigram_model[word])
-        text.append(next_word)
-        word = next_word
+        if word in bigram_model and bigram_model[word]:  # Check if word has successors
+            next_word = random.choice(bigram_model[word])
+            text.append(next_word)
+            word = next_word
+        else:
+            break  # Break if the word has no successors
     return ' '.join(text)
 
 text = "This is a sample text for testing the bigram model."
