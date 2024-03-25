@@ -1,0 +1,13 @@
+import random
+
+def stochastic_pos_tagging(text):
+    pos_tags = []
+    for word in text.split():
+        # Randomly assign a POS tag for each word
+        pos_tag = random.choice(['NN', 'VB', 'JJ', 'RB'])  # Example POS tags
+        pos_tags.append((word, pos_tag))
+    return pos_tags
+
+text = "This is a simple stochastic part-of-speech tagging algorithm."
+pos_tags = stochastic_pos_tagging(text)
+print(pos_tags)
